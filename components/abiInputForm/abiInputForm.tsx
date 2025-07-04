@@ -22,14 +22,17 @@ export function AbiInputForm({
     onAbiParsed(parsedAbi, values.address);
   }
 
-  function useUsdcTest() {
+  function useTest() {
     // USDC Mainnet
-    onAbiParsed(dummyAbi, "0xCa6CB9FF7dD3623AD1d697a2F94949Ff8059B00B");
+    onAbiParsed(dummyAbi, '0xCa6CB9FF7dD3623AD1d697a2F94949Ff8059B00B');
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-3xl">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 w-full max-w-3xl"
+      >
         <FormField
           control={form.control}
           name="abi"
@@ -55,24 +58,22 @@ export function AbiInputForm({
             <FormItem>
               <FormLabel>Contract Address</FormLabel>
               <FormControl>
-                <Input
-                  {...field}
-                  placeholder="0x..."
-                  className="font-mono"
-                />
+                <Input {...field} placeholder="0x..." className="font-mono" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Load ABI & Address</Button>
+        <Button type="submit" className="w-full">
+          Load ABI & Address
+        </Button>
         <Button
           variant="secondary"
           type="button"
           className="w-full"
-          onClick={useUsdcTest}
+          onClick={useTest}
         >
-          Use test contract (USDC)
+          Use test ERC20
         </Button>
       </form>
     </Form>

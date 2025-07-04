@@ -11,11 +11,16 @@ export interface IAbiFunction {
 export interface IFunctionListProps {
   functions: IAbiFunction[];
   contractAddress: string;
+  abi: any[];
 }
 
-export const FunctionList: React.FC<IFunctionListProps> = ({ functions, contractAddress }) => {
+export const FunctionList: React.FC<IFunctionListProps> = ({
+  functions,
+  contractAddress,
+  abi,
+}) => {
   return (
-     <Accordion type="single" collapsible className="w-full max-w-3xl">
+    <Accordion type="single" collapsible className="w-full max-w-3xl">
       {functions.map((fn, idx) => (
         <AccordionItem key={fn.name + idx} value={fn.name + idx}>
           <AccordionTrigger>
@@ -29,38 +34,47 @@ export const FunctionList: React.FC<IFunctionListProps> = ({ functions, contract
           <AccordionContent>
             <div className="text-sm mb-2">
               <span className="font-semibold">Inputs:</span>
-              {fn.inputs.length === 0
-                ? <span className="ml-2 text-muted-foreground">None</span>
-                : (
-                  <ul className="ml-4">
-                    {fn.inputs.map((input, i) => (
-                      <li key={i}>
-                        <span className="font-mono">{input.type}</span>{" "}
-                        <span className="text-muted-foreground">{input.name || `(arg${i})`}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              {fn.inputs.length === 0 ? (
+                <span className="ml-2 text-muted-foreground">None</span>
+              ) : (
+                <ul className="ml-4">
+                  {fn.inputs.map((input, i) => (
+                    <li key={i}>
+                      <span className="font-mono">{input.type}</span>{' '}
+                      <span className="text-muted-foreground">
+                        {input.name || `(arg${i})`}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div className="text-sm">
               <span className="font-semibold">Outputs:</span>
-              {fn.outputs.length === 0
-                ? <span className="ml-2 text-muted-foreground">None</span>
-                : (
-                  <ul className="ml-4">
-                    {fn.outputs.map((output, i) => (
-                      <li key={i}>
-                        <span className="font-mono">{output.type}</span>{" "}
-                        <span className="text-muted-foreground">{output.name || `(out${i})`}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              {fn.outputs.length === 0 ? (
+                <span className="ml-2 text-muted-foreground">None</span>
+              ) : (
+                <ul className="ml-4">
+                  {fn.outputs.map((output, i) => (
+                    <li key={i}>
+                      <span className="font-mono">{output.type}</span>{' '}
+                      <span className="text-muted-foreground">
+                        {output.name || `(out${i})`}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-             <FunctionForm fnAbi={fn} chainId={1} contractAddress={contractAddress} />
+            <FunctionForm
+              fnAbi={fn}
+              abi={abi}
+              chainId={11155111}
+              contractAddress={contractAddress}
+            />
           </AccordionContent>
         </AccordionItem>
       ))}
     </Accordion>
   );
-}
+};
